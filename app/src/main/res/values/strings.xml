@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AsoDes</string>
     <string name="name">name</string>
+    <string name="email">email</string>
+    <string name="phone">phone</string>
+    <string name="address">address</string>
+    <string name="dd_mm_yyyy">dd/mm/yyyy</string>
 </resources>
