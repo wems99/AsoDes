@@ -1,9 +1,9 @@
 package com.example.asodes.infrastructure.services
 
-import com.example.asodes.AsoDesUnidos
 import com.example.asodes.infrastructure.data.local.database.SQLiteConnection
 import com.example.asodes.infrastructure.data.local.entity.User
 import com.example.asodes.infrastructure.exceptions.AuthenticationException
+import com.example.asodes.infrastructure.utils.getDatabaseInstance
 import org.json.JSONObject
 
 class AuthenticateUserService(private val db: SQLiteConnection) : BaseService<String, User> {
@@ -20,7 +20,7 @@ class AuthenticateUserService(private val db: SQLiteConnection) : BaseService<St
     companion object {
         @JvmStatic
         suspend fun execute(payload: String): User {
-            val service = AuthenticateUserService(SQLiteConnection.getInstance(AsoDesUnidos.appContext))
+            val service = AuthenticateUserService(getDatabaseInstance())
             return service.execute(payload)
         }
     }
