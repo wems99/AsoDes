@@ -4,6 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.asodes.infrastructure.data.local.entity.Admin
+import com.example.asodes.infrastructure.data.local.entity.CivilStatus
+import com.example.asodes.infrastructure.data.local.entity.Client
+import com.example.asodes.infrastructure.data.local.entity.CreditTime
+import com.example.asodes.infrastructure.data.local.entity.CreditType
+import com.example.asodes.infrastructure.data.local.entity.Loan
+import com.example.asodes.infrastructure.data.local.entity.LoanWithClient
+import com.example.asodes.infrastructure.data.local.entity.SavingsPlan
+import com.example.asodes.infrastructure.data.local.entity.SavingsType
+import com.example.asodes.infrastructure.data.local.entity.User
 import com.example.asodes.infrastructure.data.repository.AdminDao
 import com.example.asodes.infrastructure.data.repository.CivilStatusDao
 import com.example.asodes.infrastructure.data.repository.ClientDao
@@ -14,7 +24,18 @@ import com.example.asodes.infrastructure.data.repository.SavingsPlanDao
 import com.example.asodes.infrastructure.data.repository.SavingsTypeDao
 import com.example.asodes.infrastructure.data.repository.UserDao
 
-@Database(entities = [], version = 1)
+@Database(entities = [
+    Admin::class,
+    CivilStatus::class,
+    Client::class,
+    CreditTime::class,
+    CreditType::class,
+    Loan::class,
+    LoanWithClient::class,
+    SavingsType::class,
+    SavingsPlan::class,
+    User::class],
+    version = 1)
 abstract class SQLiteConnection : RoomDatabase() {
     abstract fun adminDao(): AdminDao
     abstract fun civilStatusDao(): CivilStatusDao

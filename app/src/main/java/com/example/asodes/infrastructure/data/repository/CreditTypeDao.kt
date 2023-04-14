@@ -1,11 +1,13 @@
 package com.example.asodes.infrastructure.data.repository
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.asodes.infrastructure.data.local.entity.CreditType
 
+@Dao
 interface CreditTypeDao {
     @Query("SELECT * FROM credit_types")
     suspend fun getAllCreditTypes(): List<CreditType>
