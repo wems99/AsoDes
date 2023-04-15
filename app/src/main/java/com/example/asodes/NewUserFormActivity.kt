@@ -2,6 +2,7 @@ package com.example.asodes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.alledic.asodes.R
 
 class NewUserFormActivity : AppCompatActivity() {
 

@@ -10,17 +10,17 @@ import com.example.asodes.infrastructure.data.local.entity.CreditTime
 @Dao
 interface CreditTimeDao {
     @Query("SELECT * FROM credit_times")
-    suspend fun getAllCreditTimes(): List<CreditTime>
+    fun getAllCreditTimes(): List<CreditTime>
 
-    @Query("SELECT * FROM credit_times WHERE credit_time_id = :creditTimeId")
-    suspend fun getCreditTimeById(creditTimeId: Long): CreditTime?
+    @Query("SELECT * FROM credit_times WHERE id = :creditTimeId")
+    fun getCreditTimeById(creditTimeId: Long): CreditTime?
 
-    @Insert()
-    suspend fun insertCreditTime(creditTime: CreditTime)
+    @Insert
+    fun insertCreditTime(creditTime: CreditTime)
 
-    @Update()
-    suspend fun updateCreditTime(creditTime: CreditTime)
+    @Update
+    fun updateCreditTime(creditTime: CreditTime)
 
     @Delete
-    suspend fun deleteCreditTime(creditTime: CreditTime)
+    fun deleteCreditTime(creditTime: CreditTime)
 }

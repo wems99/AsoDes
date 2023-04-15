@@ -3,13 +3,13 @@ package com.example.asodes.infrastructure.data.local.entity
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class LoanWithClient(
+data class ClientWithCivilStatus(
     @Embedded
-    val loan: Loan,
+    val client: Client,
 
     @Relation(
-        parentColumn = "loan_client_id",
+        parentColumn = "client_civil_status_id",
         entityColumn = "id"
     )
-    val client: Client
+    val civilStatus: CivilStatus
 )

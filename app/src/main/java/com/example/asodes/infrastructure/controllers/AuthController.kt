@@ -10,18 +10,18 @@ import org.json.JSONObject
 class AuthController {
     companion object {
         @JvmStatic
-        suspend fun authenticate(username: String, password: String): Any {
+        suspend fun authenticate(username: String, password: String): Any? {
             val payload = JSONObject()
             payload.put("username", username)
             payload.put("password", password)
 
-            val user = AuthenticateUserService.execute(payload.toString())
+            val user = AuthenticateUserService.perform(payload)
 
-           if (user.isAdmin) {
-               return RetrieveAdminByIdService.execute(user.id)
+           if (user!!.isAdmin) {
+               return RetrieveAdminByIdService.perform(user!!.id)
            }
 
-            return RetrieveClientByIdService.execute(user.id)
+            return RetrieveClientByIdService.perform(user!!.id)
         }
     }
 }

@@ -2,10 +2,16 @@ package com.example.asodes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.alledic.asodes.R
+import com.example.asodes.infrastructure.seeders.SeedCivilStatus
+import com.example.asodes.infrastructure.seeders.SeedDatabase
+import com.example.asodes.infrastructure.seeders.seedDatabase
+import com.example.asodes.infrastructure.services.CreateCivilStatusService
+import com.example.asodes.infrastructure.utils.BackgroundRunner
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        seedDatabase()
 
         initElements()
         initListeners()
@@ -32,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     private fun initListeners() {
         userExitAppButton.setOnClickListener(::onUserExitAppButton)
         logInButton.setOnClickListener(::onLogInButtonClick)
-
     }
 
     private fun onLogInButtonClick(view: View){
