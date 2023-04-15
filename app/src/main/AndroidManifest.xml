@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.example.asodes.AsoDesUnidos"
+        android:name=".AsoDesUnidos"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AsoDes"
         tools:targetApi="31">
+        <activity
+            android:name=".infPersonalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".calCuotaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gestAhorrosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".verPrestamosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".clientePantallaPrincipalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".asignarPrestamoActivity"
+            android:exported="false" />
         <activity
             android:name=".NewUserFormActivity"
             android:exported="false" />
