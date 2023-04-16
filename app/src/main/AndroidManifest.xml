@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AsoDes"
         tools:targetApi="31">
         <activity
+
+            android:name="com.example.asodes.NewUserFormActivity"
+
             android:name=".infPersonalActivity"
             android:exported="false" />
         <activity
@@ -32,12 +35,13 @@
             android:exported="false" />
         <activity
             android:name=".NewUserFormActivity"
+
             android:exported="false" />
         <activity
-            android:name=".AdmPrincipalActivity"
+            android:name="com.example.asodes.AdmPrincipalActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.asodes.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

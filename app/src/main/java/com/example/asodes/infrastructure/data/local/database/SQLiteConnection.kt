@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.asodes.infrastructure.data.local.converters.TimestampDateConverter
 import com.example.asodes.infrastructure.data.local.entity.Admin
 import com.example.asodes.infrastructure.data.local.entity.CivilStatus
 import com.example.asodes.infrastructure.data.local.entity.Client
 import com.example.asodes.infrastructure.data.local.entity.CreditTime
 import com.example.asodes.infrastructure.data.local.entity.CreditType
 import com.example.asodes.infrastructure.data.local.entity.Loan
-import com.example.asodes.infrastructure.data.local.entity.LoanWithClient
 import com.example.asodes.infrastructure.data.local.entity.SavingsPlan
 import com.example.asodes.infrastructure.data.local.entity.SavingsType
 import com.example.asodes.infrastructure.data.local.entity.User
@@ -25,17 +26,17 @@ import com.example.asodes.infrastructure.data.repository.SavingsTypeDao
 import com.example.asodes.infrastructure.data.repository.UserDao
 
 @Database(entities = [
-    Admin::class,
-    CivilStatus::class,
-    Client::class,
+    User::class,
+    SavingsType::class,
     CreditTime::class,
     CreditType::class,
+    CivilStatus::class,
+    Admin::class,
+    Client::class,
     Loan::class,
-    LoanWithClient::class,
-    SavingsType::class,
-    SavingsPlan::class,
-    User::class],
+    SavingsPlan::class],
     version = 1)
+@TypeConverters(TimestampDateConverter::class)
 abstract class SQLiteConnection : RoomDatabase() {
     abstract fun adminDao(): AdminDao
     abstract fun civilStatusDao(): CivilStatusDao

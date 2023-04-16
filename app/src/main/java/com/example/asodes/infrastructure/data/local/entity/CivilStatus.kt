@@ -7,9 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "civil_statuses")
 data class CivilStatus(
-    @ColumnInfo(name = "civil_status_id")
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
 
     @NonNull
     val name: String,

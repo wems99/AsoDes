@@ -10,21 +10,21 @@ import com.example.asodes.infrastructure.data.local.entity.Admin
 @Dao
 interface AdminDao {
     @Query("SELECT * FROM admins")
-    suspend fun getAllAdmins(): List<Admin>
+    fun getAllAdmins(): List<Admin>
 
-    @Query("SELECT * FROM admins WHERE admin_id = :adminId")
-    suspend fun getAdminById(adminId: Long): Admin?
+    @Query("SELECT * FROM admins WHERE id = :adminId")
+    fun getAdminById(adminId: Long): Admin?
 
-    @Query("SELECT * FROM admins WHERE user_id = :userId")
-    suspend fun getAdminByUserId(userId: Long): Admin?
+    @Query("SELECT * FROM admins WHERE admin_user_id = :userId")
+    fun getAdminByUserId(userId: Long): Admin?
 
-    @Insert()
-    suspend fun insertAdmin(admin: Admin)
+    @Insert
+    fun insertAdmin(admin: Admin)
 
-    @Update()
-    suspend fun updateAdmin(admin: Admin)
+    @Update
+    fun updateAdmin(admin: Admin)
 
     @Delete
-    suspend fun deleteAdmin(admin: Admin)
+    fun deleteAdmin(admin: Admin)
 
 }

@@ -10,17 +10,17 @@ import com.example.asodes.infrastructure.data.local.entity.CivilStatus
 @Dao
 interface CivilStatusDao {
     @Query("SELECT * FROM civil_statuses")
-    suspend fun getAllCivilStatuses(): List<CivilStatus>
+    fun getAllCivilStatuses(): List<CivilStatus>
 
-    @Query("SELECT * FROM civil_statuses WHERE civil_status_id = :civilStatusId")
-    suspend fun getCivilStatusById(civilStatusId: Long): CivilStatus?
+    @Query("SELECT * FROM civil_statuses WHERE id = :civilStatusId")
+    fun getCivilStatusById(civilStatusId: Long): CivilStatus?
 
-    @Insert()
-    suspend fun insertCivilStatus(civilStatus: CivilStatus)
+    @Insert
+    fun insertCivilStatus(civilStatus: CivilStatus): Long
 
-    @Update()
-    suspend fun updateCivilStatus(civilStatus: CivilStatus)
+    @Update
+    fun updateCivilStatus(civilStatus: CivilStatus)
 
     @Delete
-    suspend fun deleteCivilStatus(civilStatus: CivilStatus)
+    fun deleteCivilStatus(civilStatus: CivilStatus)
 }

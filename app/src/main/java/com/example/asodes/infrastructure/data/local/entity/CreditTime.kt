@@ -8,9 +8,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "credit_times")
 data class CreditTime(
-    @ColumnInfo(name = "credit_time_id")
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
 
     @NonNull
     val name: String,
