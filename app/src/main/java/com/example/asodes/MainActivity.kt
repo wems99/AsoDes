@@ -7,12 +7,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.alledic.asodes.R
+import com.example.asodes.infrastructure.controllers.AuthController
 import com.example.asodes.infrastructure.seeders.SeedCivilStatus
 import com.example.asodes.infrastructure.seeders.SeedDatabase
 import com.example.asodes.infrastructure.seeders.seedDatabase
 import com.example.asodes.infrastructure.services.CreateCivilStatusService
 import com.example.asodes.infrastructure.utils.BackgroundRunner
 import com.example.asodes.infrastructure.utils.getDatabaseInstance
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("Database path", getDatabaseInstance().openHelper.readableDatabase.path)
+
         initElements()
         initListeners()
     }

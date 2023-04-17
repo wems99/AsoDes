@@ -50,7 +50,7 @@ data class Client (
             val userId = payload.getLong("userId")
             val salary = payload.getDouble("salary")
             val phone = payload.getString("phone")
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy")
             val dateOfBirth = dateFormat.parse(payload.getString("dateOfBirth"))
             val civilStatusId = payload.getLong("civilStatusId")
 
