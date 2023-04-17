@@ -17,7 +17,7 @@ interface SavingsTypeDao {
     fun getSavingsTypeById(savingsTypeId: Long): SavingsType?
 
     @Insert
-    fun insertSavingsType(savingsType: SavingsType)
+    fun insertSavingsType(savingsType: SavingsType): Long
 
     @Update
     fun updateSavingsType(savingsType: SavingsType)

@@ -1,5 +1,6 @@
 package com.example.asodes.infrastructure.data.local.entity
 
+import androidx.annotation.IntRange
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
@@ -7,6 +8,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import org.json.JSONObject
 
 @Entity(tableName = "loans",
     foreignKeys = [
@@ -47,4 +49,39 @@ data class Loan(
     @ColumnInfo(name = "loan_client_id", index = true)
     @NonNull
     val clientId: Long,
-)
+
+    @NonNull
+    @IntRange(from = 1, to = 45)
+    val percentage: Int,
+
+    @NonNull
+    val clientSalary: Double,
+
+    @NonNull
+    var contributions: Double
+) {
+    companion object {
+        @JvmStatic
+        fun fromJson(payload: JSONObject): Loan {
+            val creditTypeId = payload.getLong("creditTypeId")
+            val creditTimeId = payload.getLong("creditTimeId")
+            val clientId = payload.getLong("clientId")
+            val percentage = payload.getInt("percentage")
+            val clientSalary = payload.getDouble("clientSalary")
+
+            return Loan(0, creditTypeId, creditTimeId, clientId, percentage, clientSalary, 0.0)
+        }
+    }
+
+    private fun calculateLoanAmount(): Double {
+        return clientSalary * (percentage / 100)
+    }
+    
+    fun calculateLeftLoanAmount(): Double {
+        return calculateLoanAmount() - contributions
+    }
+
+    fun addContribution(contribution: Double) {
+        contributions += contribution
+    }
+}

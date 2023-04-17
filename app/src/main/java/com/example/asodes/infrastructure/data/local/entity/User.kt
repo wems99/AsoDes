@@ -4,6 +4,8 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.json.JSONObject
+import java.text.SimpleDateFormat
 
 @Entity(tableName = "users")
 open class User (
@@ -22,4 +24,15 @@ open class User (
     @ColumnInfo(name = "is_admin")
     @NonNull
     val isAdmin: Boolean,
-    )
+    ) {
+    companion object {
+        fun fromJson(payload: JSONObject): User {
+            val name = payload.getString("name")
+            val username = payload.getString("username")
+            val password = payload.getString("password")
+            val isAdmin = payload.getBoolean("isAdmin")
+
+            return User(0, name, username, password, isAdmin)
+        }
+    }
+}

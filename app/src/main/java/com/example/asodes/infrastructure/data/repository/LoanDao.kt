@@ -20,7 +20,7 @@ interface LoanDao {
     fun getLoansByClientId(clientId: Long): List<Loan>
 
     @Insert
-    fun insertLoan(loan: Loan)
+    fun insertLoan(loan: Loan): Long
 
     @Update
     fun updateLoan(loan: Loan)

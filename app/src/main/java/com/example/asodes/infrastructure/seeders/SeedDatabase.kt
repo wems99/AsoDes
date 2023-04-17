@@ -1,5 +1,6 @@
 package com.example.asodes.infrastructure.seeders
 
+import android.util.Log
 import com.example.asodes.infrastructure.utils.BackgroundRunner
 
 class SeedDatabase {
@@ -7,7 +8,12 @@ class SeedDatabase {
         @JvmStatic
         fun seed() {
             BackgroundRunner.run {
-                SeedCivilStatus.seed()
+                SeedCivilStatus.perform()
+                SeedCreditType.perform()
+                SeedSavingsType.perform()
+                SeedCreditTime.perform()
+                SeedCreateAdmin.perform()
+                Log.d("Seeder", "Database seeded")
             }
         }
     }

@@ -16,7 +16,7 @@ interface CreditTimeDao {
     fun getCreditTimeById(creditTimeId: Long): CreditTime?
 
     @Insert
-    fun insertCreditTime(creditTime: CreditTime)
+    fun insertCreditTime(creditTime: CreditTime): Long
 
     @Update
     fun updateCreditTime(creditTime: CreditTime)

@@ -18,6 +18,9 @@ interface SavingsPlanDao {
     @Query("SELECT * FROM savings_plans WHERE savings_plan_client_id = :clientId AND savings_plan_savings_type_id = :savingsTypeId")
     fun getClientSavingsPlan(clientId: Long, savingsTypeId: Long): SavingsPlan?
 
+    @Query("SELECT * FROM savings_plans WHERE savings_plan_client_id = :clientId")
+    fun getSavingsPlansByClientId(clientId: Long): List<SavingsPlan>
+
     @Query("DELETE FROM savings_plans WHERE savings_plan_client_id = :clientId AND savings_plan_savings_type_id = :savingsTypeId")
     fun deleteSavingsPlan(clientId: Long, savingsTypeId: Long)
 

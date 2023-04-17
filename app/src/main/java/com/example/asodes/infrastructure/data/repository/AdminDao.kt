@@ -19,7 +19,7 @@ interface AdminDao {
     fun getAdminByUserId(userId: Long): Admin?
 
     @Insert
-    fun insertAdmin(admin: Admin)
+    fun insertAdmin(admin: Admin): Long
 
     @Update
     fun updateAdmin(admin: Admin)

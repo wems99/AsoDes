@@ -16,7 +16,7 @@ interface CreditTypeDao {
     fun getCreditTypeById(creditTypeId: Long): CreditType?
 
     @Insert
-    fun insertCreditType(creditType: CreditType)
+    fun insertCreditType(creditType: CreditType): Long
 
     @Update
     fun updateCreditType(creditType: CreditType)

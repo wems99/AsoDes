@@ -7,24 +7,23 @@ import com.example.asodes.infrastructure.exceptions.UnableToCreateRecord
 import com.example.asodes.infrastructure.utils.getDatabaseInstance
 
 class CreateCivilStatusService(private val db: SQLiteConnection) : BaseService<String, CivilStatus> {
-    override fun execute(payload: String): CivilStatus? {
+    override suspend fun execute(civilStatusName: String): CivilStatus? {
         val civilStatusDao = db.civilStatusDao()
         val civilStatus = CivilStatus(
-            name = payload
+            name = civilStatusName
         )
 
        val civilStatusId: Long = civilStatusDao.insertCivilStatus(civilStatus)
-        civilStatusDao.getCivilStatusById(civilStatusId)?.let { Log.d("Civil status:", it.name) }
 
         return civilStatusDao.getCivilStatusById(civilStatusId)
-            ?: throw UnableToCreateRecord("Error while creating civil status")
+            ?: throw UnableToCreateRecord("Error while creating a civil status")
     }
 
     companion object {
         @JvmStatic
-        fun perform(payload: String): CivilStatus? {
+        suspend fun perform(civilStatusName: String): CivilStatus? {
             val service = CreateCivilStatusService(getDatabaseInstance())
-            return service.execute(payload)
+            return service.execute(civilStatusName)
         }
     }
 }

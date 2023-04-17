@@ -8,6 +8,8 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+const val MIN_AMOUNT = 5000
+
 @Entity(tableName = "savings_plans",
     primaryKeys = ["savings_plan_client_id", "savings_plan_savings_type_id"],
     foreignKeys = [
@@ -17,7 +19,7 @@ import androidx.room.PrimaryKey
     indices = [
         Index(value = ["savings_plan_savings_type_id"], name = "index_savings_plans_savings_type_id"),
         Index(value = ["savings_plan_client_id"], name = "index_savings_plans_client_id")
-    ]
+    ],
 )
 data class SavingsPlan(
     @ColumnInfo(name = "savings_plan_client_id", index = true)
@@ -28,5 +30,12 @@ data class SavingsPlan(
     val savingsTypeId: Long,
 
     @NonNull
-    val amount: Double
-)
+    var amount: Double
+) {
+    companion object {
+        @JvmStatic
+        fun createSavingsPlan(clientId: Long, savingsTypeId: Long, amount: Double): SavingsPlan {
+            return SavingsPlan(clientId, savingsTypeId, amount)
+        }
+    }
+}

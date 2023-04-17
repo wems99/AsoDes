@@ -20,7 +20,7 @@ interface ClientDao {
     fun getClientByUserId(userId: Long): Client?
 
     @Insert
-    fun insertClient(client: Client)
+    fun insertClient(client: Client): Long
 
     @Update
     fun updateClient(client: Client)

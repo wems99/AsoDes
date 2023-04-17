@@ -7,6 +7,8 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import org.json.JSONObject
+import java.text.SimpleDateFormat
 
 
 @Entity(tableName = "admins",
@@ -26,4 +28,10 @@ data class Admin(
 
     @ColumnInfo(name = "admin_user_id", index = true)
     val userId: Long,
-)
+) {
+    companion object {
+        fun createAdmin(userId: Long): Admin {
+            return Admin(0, userId)
+        }
+    }
+}
