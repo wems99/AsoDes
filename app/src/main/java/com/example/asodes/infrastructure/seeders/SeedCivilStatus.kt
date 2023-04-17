@@ -1,13 +1,19 @@
 package com.example.asodes.infrastructure.seeders
 
+import android.util.Log
 import com.example.asodes.infrastructure.services.CreateCivilStatusService
 
-class SeedCivilStatus {
+class SeedCivilStatus : BaseSeeder {
+    override suspend fun seed() {
+        CreateCivilStatusService.perform("SINGLE")
+        CreateCivilStatusService.perform("MARRIED")
+        CreateCivilStatusService.perform("DIVORCED")
+    }
     companion object {
         @JvmStatic
-        fun seed() {
-            CreateCivilStatusService.perform("SOLTERO")
-            CreateCivilStatusService.perform("CASADO")
+        suspend fun perform() {
+           val seeder = SeedCivilStatus()
+           seeder.seed()
         }
     }
 }

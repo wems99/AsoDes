@@ -1,10 +1,12 @@
 package com.example.asodes.infrastructure.data.local.database
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.asodes.infrastructure.data.local.converters.TimestampDateConverter
 import com.example.asodes.infrastructure.data.local.entity.Admin
 import com.example.asodes.infrastructure.data.local.entity.CivilStatus
@@ -24,6 +26,8 @@ import com.example.asodes.infrastructure.data.repository.LoanDao
 import com.example.asodes.infrastructure.data.repository.SavingsPlanDao
 import com.example.asodes.infrastructure.data.repository.SavingsTypeDao
 import com.example.asodes.infrastructure.data.repository.UserDao
+import com.example.asodes.infrastructure.seeders.seedDatabase
+import com.example.asodes.infrastructure.utils.BackgroundRunner
 
 @Database(entities = [
     User::class,
@@ -66,7 +70,15 @@ abstract class SQLiteConnection : RoomDatabase() {
                     context.applicationContext,
                     SQLiteConnection::class.java,
                     "asodesunidos.db"
-                ).build().also { instance = it }
+                )
+                .addCallback(object: Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        Log.d("Database", "Database created")
+                        seedDatabase()
+                    }
+                })
+                .build().also { instance = it }
             }
         }
     }

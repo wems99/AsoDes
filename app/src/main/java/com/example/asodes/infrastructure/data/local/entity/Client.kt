@@ -7,6 +7,8 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.Date
 
 
@@ -42,4 +44,17 @@ data class Client (
     @ColumnInfo(name = "client_civil_status_id", index = true)
     @NonNull
     val civilStatusId: Long,
-)
+) {
+    companion object {
+        fun fromJson(payload: JSONObject): Client {
+            val userId = payload.getLong("userId")
+            val salary = payload.getDouble("salary")
+            val phone = payload.getString("phone")
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val dateOfBirth = dateFormat.parse(payload.getString("dateOfBirth"))
+            val civilStatusId = payload.getLong("civilStatusId")
+
+            return Client(0, userId, salary, phone, dateOfBirth, civilStatusId)
+        }
+    }
+}

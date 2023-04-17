@@ -12,6 +12,7 @@ import com.example.asodes.infrastructure.seeders.SeedDatabase
 import com.example.asodes.infrastructure.seeders.seedDatabase
 import com.example.asodes.infrastructure.services.CreateCivilStatusService
 import com.example.asodes.infrastructure.utils.BackgroundRunner
+import com.example.asodes.infrastructure.utils.getDatabaseInstance
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        seedDatabase()
-
+        Log.d("Database path", getDatabaseInstance().openHelper.readableDatabase.path)
         initElements()
         initListeners()
     }

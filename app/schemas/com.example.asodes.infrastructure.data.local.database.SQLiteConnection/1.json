@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "99617b81a5b5d82830208c076e3535fd",
+    "identityHash": "d79ce6f0d1e3eec1c492fafca410d629",
     "entities": [
       {
         "tableName": "users",
@@ -189,12 +189,12 @@
         },
         "indices": [
           {
-            "name": "index_admins_admin_user_id",
+            "name": "index_admins_user_id",
             "unique": false,
             "columnNames": [
               "admin_user_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_admins_admin_user_id` ON `${TABLE_NAME}` (`admin_user_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_admins_user_id` ON `${TABLE_NAME}` (`admin_user_id`)"
           },
           {
             "name": "index_admins_admin_user_id",
@@ -268,20 +268,20 @@
         },
         "indices": [
           {
-            "name": "index_clients_client_user_id",
+            "name": "index_clients_user_id",
             "unique": false,
             "columnNames": [
               "client_user_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_client_user_id` ON `${TABLE_NAME}` (`client_user_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_user_id` ON `${TABLE_NAME}` (`client_user_id`)"
           },
           {
-            "name": "index_clients_client_civil_status_id",
+            "name": "index_clients_civil_status_id",
             "unique": false,
             "columnNames": [
               "client_civil_status_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_client_civil_status_id` ON `${TABLE_NAME}` (`client_civil_status_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clients_civil_status_id` ON `${TABLE_NAME}` (`client_civil_status_id`)"
           },
           {
             "name": "index_clients_client_user_id",
@@ -316,7 +316,7 @@
       },
       {
         "tableName": "loans",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `loan_credit_type_id` INTEGER NOT NULL, `loan_credit_time_id` INTEGER NOT NULL, `loan_client_id` INTEGER NOT NULL, FOREIGN KEY(`loan_credit_type_id`) REFERENCES `credit_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`loan_credit_time_id`) REFERENCES `credit_times`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`loan_client_id`) REFERENCES `clients`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `loan_credit_type_id` INTEGER NOT NULL, `loan_credit_time_id` INTEGER NOT NULL, `loan_client_id` INTEGER NOT NULL, `percentage` INTEGER NOT NULL, `clientSalary` REAL NOT NULL, `contributions` REAL NOT NULL, FOREIGN KEY(`loan_credit_type_id`) REFERENCES `credit_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`loan_credit_time_id`) REFERENCES `credit_times`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`loan_client_id`) REFERENCES `clients`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -341,6 +341,24 @@
             "columnName": "loan_client_id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "percentage",
+            "columnName": "percentage",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "clientSalary",
+            "columnName": "clientSalary",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contributions",
+            "columnName": "contributions",
+            "affinity": "REAL",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -351,28 +369,28 @@
         },
         "indices": [
           {
-            "name": "index_loans_loan_credit_type_id",
+            "name": "index_loans_credit_type_id",
             "unique": false,
             "columnNames": [
               "loan_credit_type_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_loans_loan_credit_type_id` ON `${TABLE_NAME}` (`loan_credit_type_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loans_credit_type_id` ON `${TABLE_NAME}` (`loan_credit_type_id`)"
           },
           {
-            "name": "index_loans_loan_credit_time_id",
+            "name": "index_loans_credit_time_id",
             "unique": false,
             "columnNames": [
               "loan_credit_time_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_loans_loan_credit_time_id` ON `${TABLE_NAME}` (`loan_credit_time_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loans_credit_time_id` ON `${TABLE_NAME}` (`loan_credit_time_id`)"
           },
           {
-            "name": "index_loans_loan_client_id",
+            "name": "index_loans_client_id",
             "unique": false,
             "columnNames": [
               "loan_client_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_loans_loan_client_id` ON `${TABLE_NAME}` (`loan_client_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loans_client_id` ON `${TABLE_NAME}` (`loan_client_id`)"
           },
           {
             "name": "index_loans_loan_credit_type_id",
@@ -467,20 +485,20 @@
         },
         "indices": [
           {
-            "name": "index_savings_plans_savings_plan_savings_type_id",
+            "name": "index_savings_plans_savings_type_id",
             "unique": false,
             "columnNames": [
               "savings_plan_savings_type_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_savings_plans_savings_plan_savings_type_id` ON `${TABLE_NAME}` (`savings_plan_savings_type_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_savings_plans_savings_type_id` ON `${TABLE_NAME}` (`savings_plan_savings_type_id`)"
           },
           {
-            "name": "index_savings_plans_savings_plan_client_id",
+            "name": "index_savings_plans_client_id",
             "unique": false,
             "columnNames": [
               "savings_plan_client_id"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_savings_plans_savings_plan_client_id` ON `${TABLE_NAME}` (`savings_plan_client_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_savings_plans_client_id` ON `${TABLE_NAME}` (`savings_plan_client_id`)"
           },
           {
             "name": "index_savings_plans_savings_plan_client_id",
@@ -528,7 +546,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '99617b81a5b5d82830208c076e3535fd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd79ce6f0d1e3eec1c492fafca410d629')"
     ]
   }
 }

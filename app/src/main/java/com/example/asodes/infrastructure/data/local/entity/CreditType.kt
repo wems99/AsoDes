@@ -1,7 +1,6 @@
 package com.example.asodes.infrastructure.data.local.entity
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -15,5 +14,5 @@ data class CreditType(
     val name: String,
 
     @NonNull
-    val percentage: Float,
+    val percentage: Double,
 )
