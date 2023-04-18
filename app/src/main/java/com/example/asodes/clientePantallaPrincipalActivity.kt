@@ -1,5 +1,6 @@
 package com.example.asodes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -39,24 +40,28 @@ class clientePantallaPrincipalActivity : AppCompatActivity() {
     }
 
     private fun onButtonLogoutClick(view: View){
-
-        //redirecting
+       // val intent = Intent(this, com.example.asodes.::class.java)
+       // startActivity(intent)
     }
 
     private fun onButtonCalCuotaClick(view: View){
-//redirecting
+        val intent = Intent(this, com.example.asodes.calCuotaActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onButtonGestAhorroClick(view: View){
-//redirecting
+        val intent = Intent(this, com.example.asodes.gestAhorrosActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onButtonVerPrestamosClick(view: View){
-//redirecting
+        val intent = Intent(this, com.example.asodes.verPrestamosActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onButtonInfPersonalClick(view: View){
-//redirecting
+        val intent = Intent(this, com.example.asodes.infPersonalActivity::class.java)
+        startActivity(intent)
     }
 
 
