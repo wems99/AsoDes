@@ -37,77 +37,42 @@
         android:id="@+id/RadioGroupPeriodo"
         android:layout_width="276dp"
         android:layout_height="149dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2">
-
-        <RadioButton
-            android:id="@+id/radioButton3nnos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3 años" />
-
-        <RadioButton
-            android:id="@+id/radioButton5annos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="5 años" />
-
-        <RadioButton
-            android:id="@+id/radioButton10annos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="10 años" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
         android:text="Periodo  del credito"
-        tools:layout_editor_absoluteX="22dp"
-        tools:layout_editor_absoluteY="186dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="Tipo de Credito"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="405dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RadioGroupPeriodo" />
 
     <RadioGroup
         android:id="@+id/RadioGoupTipoCredito"
         android:layout_width="277dp"
         android:layout_height="205dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="439dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
-        <RadioButton
-            android:id="@+id/radioButtonHipotecario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hipotecario" />
 
-        <RadioButton
-            android:id="@+id/radioButtonEducacion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Educacion" />
-
-        <RadioButton
-            android:id="@+id/radioButtonPersonal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Personal" />
-
-        <RadioButton
-            android:id="@+id/radioButtonViajes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Viajes" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

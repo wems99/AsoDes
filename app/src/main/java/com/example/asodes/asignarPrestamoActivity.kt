@@ -2,10 +2,14 @@ package com.example.asodes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.alledic.asodes.R
+import com.example.asodes.infrastructure.controllers.CreditTimeController
+import com.example.asodes.infrastructure.controllers.CreditTypeController
+import com.example.asodes.infrastructure.utils.BackgroundRunner
 
 class asignarPrestamoActivity : AppCompatActivity() {
 
@@ -17,18 +21,24 @@ class asignarPrestamoActivity : AppCompatActivity() {
 
         initElements()
 
-        val radioGroupPeriodo = findViewById<RadioGroup>(R.id.RadioGroupPeriodo)
-        radioGroupPeriodo.setOnCheckedChangeListener { group, checkedId ->
-            val radioButton = findViewById<RadioButton>(checkedId)
-            val selectedOption = radioButton.text.toString()
-            // Do something with the selected option
-        }
+        BackgroundRunner.run {
+            var listPeriods = CreditTimeController.retrieveAll()
+            val radioBtnGroupPeriods = findViewById<RadioGroup>(R.id.RadioGroupPeriodo)
+            for(periods in listPeriods){
+                val radioButton = RadioButton(this)
+                radioButton.text = "periods: ${periods.years} years"
+                radioButton.id = periods.id.toInt()
+                radioBtnGroupPeriods.addView(radioButton)
+            }
 
-        val radioGroupCredito = findViewById<RadioGroup>(R.id.RadioGoupTipoCredito)
-        radioGroupCredito.setOnCheckedChangeListener { group, checkedId ->
-            val radioButton = findViewById<RadioButton>(checkedId)
-            val selectedOption = radioButton.text.toString()
-            // Do something with the selected option
+            val listLoans = CreditTypeController.retrieveAll()
+            val radioBtnGroupLoans = findViewById<RadioGroup>(R.id.RadioGoupTipoCredito)
+            for(loans in listLoans){
+                val radioButton = RadioButton(this)
+                radioButton.text = "Type of Loan: ${loans.name}"
+                radioButton.id = loans.id.toInt()
+                radioBtnGroupLoans.addView(radioButton)
+            }
         }
 
     }
