@@ -1,7 +1,10 @@
 package com.example.asodes
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -13,6 +16,9 @@ import com.example.asodes.infrastructure.data.local.entity.CivilStatus
 import com.example.asodes.infrastructure.data.local.entity.Client
 import com.example.asodes.infrastructure.utils.BackgroundRunner
 import org.json.JSONObject
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 class CreateClientActivity : AppCompatActivity() {
 
@@ -57,17 +63,35 @@ class CreateClientActivity : AppCompatActivity() {
             }
         }
 
+        dateOfBirthEditText.inputType = InputType.TYPE_NULL
+        dateOfBirthEditText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this@CreateClientActivity,
+                 { _, year, month, dayOfMonth ->
+                    dateOfBirthEditText.setText("${twoDigitsFormat(dayOfMonth)}-${twoDigitsFormat(month + 1)}-${year}")
+                }, year, month, dayOfMonth)
+
+            datePickerDialog.show()
+        }
+
         submitButton.setOnClickListener {
             if (validateFields()) {
-                // Perform submit action here
                 BackgroundRunner.run {
-                    val client = sendForm()
-                    Log.d("client inf", client.toString())
-                    runOnUiThread{
-                        Toast.makeText(this, "Client ${if (client != null) "succefully" else "not"} created", Toast.LENGTH_LONG).show()
+                    try {
+                        val client = sendForm()
+                        showToast("Client ${if (client != null) "succefully" else "not"} created")
+                        val intent =
+                            Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+                        startActivity(intent)
+                    } catch (e: SQLiteConstraintException) {
+                        showToast("Client with provided id already exists")
+                    } catch (e: Throwable) {
+                        showToast(e.message)
                     }
-                    val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
-                    startActivity(intent)
                 }
 
             }
@@ -78,6 +102,29 @@ class CreateClientActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun showToast(message: String?) {
+        runOnUiThread {
+            Toast.makeText(
+                this,
+                message ?: "An error occurred",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun parseDate(dateString: String): LocalDate? {
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        return try {
+            LocalDate.parse(dateString, formatter)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun twoDigitsFormat(num: Int): String {
+        return if (num < 10) "0$num" else "$num"
     }
 
     private fun validateFields(): Boolean {
@@ -117,6 +164,9 @@ class CreateClientActivity : AppCompatActivity() {
         if (dateOfBirthEditText.text.isNullOrEmpty()) {
             dateOfBirthEditText.error = "Please enter your date of birth"
             isValid = false
+        } else if (parseDate(dateOfBirthEditText.text.toString()) == null) {
+            dateOfBirthEditText.error = "Invalid date format: should be dd-MM-yyyy"
+            isValid = false
         }
 
         // Validate password field
@@ -128,11 +178,11 @@ class CreateClientActivity : AppCompatActivity() {
         return isValid
     }
 
-    suspend private fun sendForm(): Client? {
+    private suspend fun sendForm(): Client? {
 
         var passwordField = passwordEditText.text.toString()
         var salaryField = salaryEditText.text.toString()
-        var DateOfBithField = dateOfBirthEditText.text.toString()
+        var dateOfBirthField = dateOfBirthEditText.text.toString()
         var addressField = addressEditText.text.toString()
         var phoneField = phoneEditText.text.toString()
         var idField = idNumberEditText.text.toString()
@@ -149,7 +199,7 @@ class CreateClientActivity : AppCompatActivity() {
         client.put("salary", salaryField)
         client.put("phone", phoneField)
         client.put("address", addressField)
-        client.put("dateOfBirth", DateOfBithField)
+        client.put("dateOfBirth", dateOfBirthField)
         client.put("civilStatusId", civilEstField)
         client.put("id", idField)
 

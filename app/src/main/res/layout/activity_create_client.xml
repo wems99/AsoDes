@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:hint="@string/date_of_birth"
-                android:inputType="date"
+                android:inputType="text"
                 android:minHeight="48dp"
                 tools:ignore="VisualLintTextFieldSize" />
 
