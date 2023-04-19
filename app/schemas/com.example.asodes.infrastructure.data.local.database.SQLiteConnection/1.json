@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d79ce6f0d1e3eec1c492fafca410d629",
+    "identityHash": "f81f324288ab7f4a752e353db6cd0de3",
     "entities": [
       {
         "tableName": "users",
@@ -221,7 +221,7 @@
       },
       {
         "tableName": "clients",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `client_user_id` INTEGER NOT NULL, `salary` REAL NOT NULL, `phone` TEXT NOT NULL, `date_of_birth` INTEGER NOT NULL, `client_civil_status_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`client_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `client_user_id` INTEGER NOT NULL, `salary` REAL NOT NULL, `phone` TEXT NOT NULL, `address` TEXT NOT NULL, `date_of_birth` INTEGER NOT NULL, `client_civil_status_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`client_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -244,6 +244,12 @@
           {
             "fieldPath": "phone",
             "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -546,7 +552,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd79ce6f0d1e3eec1c492fafca410d629')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f81f324288ab7f4a752e353db6cd0de3')"
     ]
   }
 }
