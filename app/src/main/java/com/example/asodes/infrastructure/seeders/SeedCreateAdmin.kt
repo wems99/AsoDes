@@ -11,6 +11,7 @@ class SeedCreateAdmin : BaseSeeder {
         payload.put("name", "Admin Name")
         payload.put("username", "admin")
         payload.put("password", "admin")
+        payload.put("id", 2)
         CreateAdminService.perform(payload)
     }
 

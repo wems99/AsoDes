@@ -1,14 +1,18 @@
 package com.example.asodes
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.alledic.asodes.R
 import com.example.asodes.infrastructure.controllers.CivilStatusController
+import com.example.asodes.infrastructure.controllers.ClientController
 import com.example.asodes.infrastructure.data.local.entity.CivilStatus
 import com.example.asodes.infrastructure.data.local.entity.Client
 import com.example.asodes.infrastructure.utils.BackgroundRunner
+import org.json.JSONObject
 
 class CreateClientActivity : AppCompatActivity() {
 
@@ -20,6 +24,7 @@ class CreateClientActivity : AppCompatActivity() {
     private lateinit var dateOfBirthEditText: EditText
     private lateinit var civilStatusSpinner: Spinner
     private lateinit var passwordEditText: EditText
+    private lateinit var btnBackForm: Button
     private lateinit var submitButton: Button
     private var selectedCivilStatusId: Long? = null
 
@@ -36,6 +41,7 @@ class CreateClientActivity : AppCompatActivity() {
         civilStatusSpinner = findViewById(R.id.civilStatusSpinner)
         passwordEditText = findViewById(R.id.passwordEditText)
         submitButton = findViewById(R.id.submitButton)
+        btnBackForm = findViewById(R.id.buttonBackForm)
 
         BackgroundRunner.run {
             val civilStatusOptions = CivilStatusController.retrieveAll()
@@ -56,10 +62,22 @@ class CreateClientActivity : AppCompatActivity() {
                 // Perform submit action here
                 BackgroundRunner.run {
                     val client = sendForm()
-                    Toast.makeText(this, "Client created successfully!", Toast.LENGTH_SHORT).show()
+                    Log.d("client inf", client.toString())
+                    runOnUiThread{
+                        Toast.makeText(this, "Client ${if (client != null) "succefully" else "not"} created", Toast.LENGTH_LONG).show()
+                    }
+                    val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+                    startActivity(intent)
                 }
+
             }
         }
+
+        btnBackForm.setOnClickListener{
+            val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun validateFields(): Boolean {
@@ -110,7 +128,32 @@ class CreateClientActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun sendForm(): Client? {
-        return null;
+    suspend private fun sendForm(): Client? {
+
+        var passwordField = passwordEditText.text.toString()
+        var salaryField = salaryEditText.text.toString()
+        var DateOfBithField = dateOfBirthEditText.text.toString()
+        var addressField = addressEditText.text.toString()
+        var phoneField = phoneEditText.text.toString()
+        var idField = idNumberEditText.text.toString()
+        var civilEstField = selectedCivilStatusId
+        var fullNameField = fullNameEditText.text.toString()
+        var userName = idField
+        var user = JSONObject()
+        user.put("name", fullNameField)
+        user.put("username", userName)
+        user.put("password", passwordField)
+
+        var client = JSONObject()
+        client.put("user", user)
+        client.put("salary", salaryField)
+        client.put("phone", phoneField)
+        client.put("address", addressField)
+        client.put("dateOfBirth", DateOfBithField)
+        client.put("civilStatusId", civilEstField)
+        client.put("id", idField)
+
+        return ClientController.createClient(client)
+
     }
 }

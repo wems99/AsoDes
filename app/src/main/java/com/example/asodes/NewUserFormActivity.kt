@@ -11,8 +11,6 @@ import android.widget.Button
 import android.widget.EditText
 import org.json.JSONObject
 
-import java.util.Date
-
 
 class NewUserFormActivity : AppCompatActivity() {
 
@@ -50,7 +48,7 @@ class NewUserFormActivity : AppCompatActivity() {
         dateUser = findViewById(R.id.editTextDate)
         addBtn = findViewById(R.id.newUserAddButton)
         salaryUser = findViewById(R.id.editTextNumberSalary)
-        btnBack = findViewById(R.id.buttonBack)
+        btnBack = findViewById(R.id.previewbtnTest)
 
     }
 

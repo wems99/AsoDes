@@ -38,6 +38,11 @@
         <activity
             android:name="com.example.asodes.AdmPrincipalActivity"
             android:exported="false" />
+
+        <activity
+            android:name="com.example.asodes.CreateClientActivity"
+            android:exported="false" />
+
         <activity
             android:name="com.example.asodes.MainActivity"
             android:exported="true">

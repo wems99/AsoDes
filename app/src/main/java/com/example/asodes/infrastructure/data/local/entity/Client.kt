@@ -50,7 +50,7 @@ data class Client (
 ) {
     companion object {
         fun fromJson(payload: JSONObject): Client {
-            val userId = payload.getLong("userId")
+            val id = payload.getLong("id")
             val salary = payload.getDouble("salary")
             val phone = payload.getString("phone")
             val address = payload.getString("address")
@@ -58,7 +58,7 @@ data class Client (
             val dateOfBirth = dateFormat.parse(payload.getString("dateOfBirth"))
             val civilStatusId = payload.getLong("civilStatusId")
 
-            return Client(0, userId, salary, phone, address, dateOfBirth, civilStatusId)
+            return Client(id, id, salary, phone, address, dateOfBirth, civilStatusId)
         }
     }
 }

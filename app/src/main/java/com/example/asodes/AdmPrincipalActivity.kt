@@ -32,7 +32,7 @@ class AdmPrincipalActivity : AppCompatActivity() {
     }
 
     private fun onAgregarNuevoCLienteButtonClick(view: View){
-        val intent = Intent(this, com.example.asodes.NewUserFormActivity::class.java)
+        val intent = Intent(this, com.example.asodes.CreateClientActivity::class.java)
         startActivity(intent)
     }
 

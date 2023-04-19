@@ -11,10 +11,11 @@ class CreateClientService(private val db: SQLiteConnection) : BaseService<JSONOb
     override suspend fun execute(payload: JSONObject): Client? {
         val userPayload = payload.getJSONObject("user")
         userPayload.put("isAdmin", false)
+        userPayload.put("id", payload.getLong("id"))
         val user = CreateUserService.perform(userPayload)
         val clientDao = db.clientDao()
 
-        payload.put("userId", user!!.id)
+
         val client = Client.fromJson(payload)
 
         val clientId = clientDao.insertClient(client)
@@ -34,7 +35,7 @@ class CreateClientService(private val db: SQLiteConnection) : BaseService<JSONOb
             val savingsTypes = RetrieveSavingsTypes.perform()
             savingsTypes.forEach {savingsTypes ->
                 val savingsPlanPayload = JSONObject()
-                savingsPlanPayload.put("ClientId", clientId)
+                savingsPlanPayload.put("clientId", clientId)
                 savingsPlanPayload.put("savingsPlanId", savingsTypes.id)
                 CreateInitialSavingsPlan.perform(savingsPlanPayload)
             }

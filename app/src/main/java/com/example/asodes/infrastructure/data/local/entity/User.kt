@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 
 @Entity(tableName = "users")
 open class User (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Long = 0,
 
     @NonNull
@@ -31,8 +31,9 @@ open class User (
             val username = payload.getString("username")
             val password = payload.getString("password")
             val isAdmin = payload.getBoolean("isAdmin")
+            val id = payload.getLong("id")
 
-            return User(0, name, username, password, isAdmin)
+            return User(id, name, username, password, isAdmin)
         }
     }
 }
