@@ -52,29 +52,46 @@ class MainActivity : AppCompatActivity() {
 
     private fun onLogInButtonClick(view: View){
         //Log in logic
-        BackgroundRunner.run {
-            val credenciales = JSONObject()
-            credenciales.put("username", userTextField.text.toString())
-            credenciales.put("password", userPassword.text.toString())
-            try {
-                var user = AuthController.authenticate(credenciales)
+        if(validateFields()){
+            BackgroundRunner.run {
+                val credenciales = JSONObject()
+                credenciales.put("username", userTextField.text.toString())
+                credenciales.put("password", userPassword.text.toString())
+                try {
+                    var user = AuthController.authenticate(credenciales)
 
-                if(user!!.isAdmin){
-                    val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
-                    startActivity(intent)
-                }else{
-                    val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
-                    startActivity(intent)
+                    if(user!!.isAdmin){
+                        val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
+                        startActivity(intent)
+                    }
+                }catch (e: AuthenticationException){
+                    runOnUiThread{
+                        Toast.makeText(this, "error, no user found", Toast.LENGTH_LONG).show()
+                    }
                 }
-            }catch (e: AuthenticationException){
-                runOnUiThread{
-                    Toast.makeText(this, "error", Toast.LENGTH_LONG).show()
-                }
-
             }
+        }
+    }
 
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        // Validate full name field
+        if (userTextField.text.isNullOrEmpty()) {
+            userTextField.error = "Please enter your full name"
+            isValid = false
         }
 
+        // Validate password field
+        if (userPassword.text.isNullOrEmpty()) {
+            userPassword.error = "Please enter a password"
+            isValid = false
+        }
+
+        return isValid
     }
 
     private fun onUserExitAppButton(view: View) {
