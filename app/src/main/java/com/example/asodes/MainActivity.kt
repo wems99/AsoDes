@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                     var user = AuthController.authenticate(credenciales)
 
                     if(user!!.isAdmin){
-                        val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
+                        val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
                         startActivity(intent)
                     }else{
                         val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
