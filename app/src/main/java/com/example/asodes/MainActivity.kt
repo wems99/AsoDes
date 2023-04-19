@@ -21,6 +21,7 @@ import com.example.asodes.infrastructure.utils.getDatabaseInstance
 import org.json.JSONObject
 import kotlin.math.log
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var logInButton: Button
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("Database path", getDatabaseInstance().openHelper.readableDatabase.path)
+
         initElements()
         initListeners()
     }

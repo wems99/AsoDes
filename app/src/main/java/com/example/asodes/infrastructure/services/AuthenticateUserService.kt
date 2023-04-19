@@ -7,9 +7,9 @@ import com.example.asodes.infrastructure.utils.getDatabaseInstance
 import org.json.JSONObject
 
 class AuthenticateUserService(private val db: SQLiteConnection) : BaseService<JSONObject, User> {
-    override suspend fun execute(credentials: JSONObject): User? {
-        val username = credentials.getString("username")
-        val password = credentials.getString("password")
+    override suspend fun execute(payload: JSONObject): User? {
+        val username = payload.getString("username")
+        val password = payload.getString("password")
         val userDao = db.userDao()
 
         return userDao.getUserByUsernamePassword(username, password)
