@@ -1,5 +1,6 @@
 package com.example.asodes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -24,6 +25,7 @@ class NewUserFormActivity : AppCompatActivity() {
     private lateinit var idUser: EditText
     private lateinit var addBtn: Button
     private lateinit var salaryUser: EditText
+    private lateinit var btnBack:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +36,11 @@ class NewUserFormActivity : AppCompatActivity() {
 
     private fun initListeners() {
         addBtn.setOnClickListener(::onAddBtnClick)
+        btnBack.setOnClickListener(::onBtnBackClick)
     }
 
     private fun initElements() {
+
         nameEditText = findViewById(R.id.textNameField)
         emailEditText = findViewById(R.id.textEmailField)
         aaddressEditText = findViewById(R.id.textaddressField)
@@ -46,6 +50,8 @@ class NewUserFormActivity : AppCompatActivity() {
         dateUser = findViewById(R.id.editTextDate)
         addBtn = findViewById(R.id.newUserAddButton)
         salaryUser = findViewById(R.id.editTextNumberSalary)
+        btnBack = findViewById(R.id.buttonBack)
+
     }
 
     private fun onAddBtnClick(view: View){
@@ -54,9 +60,14 @@ class NewUserFormActivity : AppCompatActivity() {
         newUser.put("userId", idUser.text.toString().toLong())
         newUser.put("salary", salaryUser.text.toString().toDouble())
         newUser.put("phone", phoneEditText.text.toString())
-        newUser.put("dateFormat", "yyyy-MM-dd")
         newUser.put("dateOfBirth", dateUser.text.toString())
         newUser.put("civilStatusId",estCivilEditText.text.toString())
 
     }
+
+    private fun onBtnBackClick(view: View){
+        val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+        startActivity(intent)
+    }
+
 }

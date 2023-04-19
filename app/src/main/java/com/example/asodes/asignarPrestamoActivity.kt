@@ -1,8 +1,10 @@
 package com.example.asodes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -14,12 +16,14 @@ import com.example.asodes.infrastructure.utils.BackgroundRunner
 class asignarPrestamoActivity : AppCompatActivity() {
 
     private lateinit var findId: EditText
+    private lateinit var btnBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignar_prestamo)
 
         initElements()
+        initListeners()
 
         BackgroundRunner.run {
             var listPeriods = CreditTimeController.retrieveAll()
@@ -43,9 +47,18 @@ class asignarPrestamoActivity : AppCompatActivity() {
 
     }
 
+    private fun initListeners() {
+        btnBack.setOnClickListener(::onBtnBackClick)
+    }
+
     private fun initElements() {
         findId = findViewById(R.id.IdUserEditTextAsignarPrestamo)
+        btnBack = findViewById(R.id.btnAsignarPrestamosBack)
+    }
 
+    private fun onBtnBackClick(view: View){
+        val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+        startActivity(intent)
     }
 
 }
