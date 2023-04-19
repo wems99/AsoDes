@@ -37,6 +37,9 @@ data class Client (
     @NonNull
     val phone: String,
 
+    @NonNull
+    val address: String,
+
     @ColumnInfo(name = "date_of_birth")
     @NonNull
     val dateOfBirth: Date,
@@ -50,11 +53,12 @@ data class Client (
             val userId = payload.getLong("userId")
             val salary = payload.getDouble("salary")
             val phone = payload.getString("phone")
+            val address = payload.getString("address")
             val dateFormat = SimpleDateFormat("dd-MM-yyyy")
             val dateOfBirth = dateFormat.parse(payload.getString("dateOfBirth"))
             val civilStatusId = payload.getLong("civilStatusId")
 
-            return Client(0, userId, salary, phone, dateOfBirth, civilStatusId)
+            return Client(0, userId, salary, phone, address, dateOfBirth, civilStatusId)
         }
     }
 }
