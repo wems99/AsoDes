@@ -1,20 +1,26 @@
 package com.example.asodes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.alledic.asodes.R
 import com.example.asodes.infrastructure.controllers.AuthController
+import com.example.asodes.infrastructure.exceptions.AuthenticationException
 import com.example.asodes.infrastructure.seeders.SeedCivilStatus
 import com.example.asodes.infrastructure.seeders.SeedDatabase
 import com.example.asodes.infrastructure.seeders.seedDatabase
+import com.example.asodes.infrastructure.services.AuthenticateUserService
 import com.example.asodes.infrastructure.services.CreateCivilStatusService
 import com.example.asodes.infrastructure.utils.BackgroundRunner
 import com.example.asodes.infrastructure.utils.getDatabaseInstance
 import org.json.JSONObject
+import kotlin.math.log
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +52,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun onLogInButtonClick(view: View){
         //Log in logic
+        BackgroundRunner.run {
+            val credenciales = JSONObject()
+            credenciales.put("username", userTextField.text.toString())
+            credenciales.put("password", userPassword.text.toString())
+            try {
+                var user = AuthController.authenticate(credenciales)
+
+                if(user!!.isAdmin){
+                    val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
+                    startActivity(intent)
+                }
+            }catch (e: AuthenticationException){
+                runOnUiThread{
+                    Toast.makeText(this, "error", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+        }
+
     }
 
     private fun onUserExitAppButton(view: View) {

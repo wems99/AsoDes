@@ -13,7 +13,27 @@
         android:theme="@style/Theme.AsoDes"
         tools:targetApi="31">
         <activity
+
+            android:name="com.example.asodes.infPersonalActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.asodes.calCuotaActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.asodes.gestAhorrosActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.asodes.verPrestamosActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.asodes.clientePantallaPrincipalActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.asodes.asignarPrestamoActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.asodes.NewUserFormActivity"
+
             android:exported="false" />
         <activity
             android:name="com.example.asodes.AdmPrincipalActivity"

@@ -1,5 +1,6 @@
 package com.example.asodes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -31,11 +32,13 @@ class AdmPrincipalActivity : AppCompatActivity() {
     }
 
     private fun onAgregarNuevoCLienteButtonClick(view: View){
-
+        val intent = Intent(this, com.example.asodes.NewUserFormActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onAsignarPrestamoButttonClick(view: View){
-
+        val intent = Intent(this, com.example.asodes.asignarPrestamoActivity::class.java)
+        startActivity(intent)
     }
 
 }
