@@ -67,6 +67,7 @@ class AssignLoanActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     selectedCreditType = creditTypeOptions[position].id
                     creditTypePercentage =  creditTypeOptions[position].percentage
+                    calculateLoanFields()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -81,6 +82,7 @@ class AssignLoanActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     selectedLoanYears = loanYearsOptions[position].id
                     loanYears = loanYearsOptions[position].years
+                    calculateLoanFields()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -138,22 +140,7 @@ class AssignLoanActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (clientSalary != null && !loanPercentageEditText.text.isNullOrEmpty()) {
-                    val loanPercentage = loanPercentageEditText.text.toString().toDouble()
-                    val loan = clientSalary!! * (loanPercentage / 100)
-                    loanAmountEditText.setText("$loan")
-                } else {
-                    loanAmountEditText.setText("")
-                }
-
-                if (!loanAmountEditText.text.isNullOrEmpty() && loanYears != null && creditTypePercentage != null) {
-                    val months = loanYears!! * 12
-                    val loanAmount = loanAmountEditText.text.toString().toDouble()
-                    val fee = (loanAmount / months) * creditTypePercentage!!
-                    monthlyFeeEditText.setText("$fee")
-                } else {
-                    monthlyFeeEditText.setText("")
-                }
+                calculateLoanFields()
             }
 
         })
@@ -171,6 +158,25 @@ class AssignLoanActivity : AppCompatActivity() {
                 message ?: "An error occurred",
                 Toast.LENGTH_LONG
             ).show()
+        }
+    }
+
+    private fun calculateLoanFields() {
+        if (clientSalary != null && !loanPercentageEditText.text.isNullOrEmpty()) {
+            val loanPercentage = loanPercentageEditText.text.toString().toDouble()
+            val loan = clientSalary!! * (loanPercentage / 100)
+            loanAmountEditText.setText("$loan")
+        } else {
+            loanAmountEditText.setText("")
+        }
+
+        if (!loanAmountEditText.text.isNullOrEmpty() && loanYears != null && creditTypePercentage != null) {
+            val months = loanYears!! * 12
+            val loanAmount = loanAmountEditText.text.toString().toDouble()
+            val fee = (loanAmount / months) * creditTypePercentage!!
+            monthlyFeeEditText.setText("$fee")
+        } else {
+            monthlyFeeEditText.setText("")
         }
     }
 
