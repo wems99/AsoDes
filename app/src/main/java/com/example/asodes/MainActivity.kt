@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 credenciales.put("password", userPassword.text.toString())
                 try {
                     var user = AuthController.authenticate(credenciales)
-
+                    SessionManager.userId =  user!!.id
                     if(user!!.isAdmin){
                         val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
                         startActivity(intent)
