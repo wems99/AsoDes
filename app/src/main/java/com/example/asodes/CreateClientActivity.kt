@@ -83,7 +83,7 @@ class CreateClientActivity : AppCompatActivity() {
                 BackgroundRunner.run {
                     try {
                         val client = sendForm()
-                        showToast("Client ${if (client != null) "succefully" else "not"} created")
+                        showToast("Client ${if (client != null) "successfully" else "not"} created")
                         val intent =
                             Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
                         startActivity(intent)

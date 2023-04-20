@@ -84,4 +84,5 @@ data class Loan(
     fun addContribution(contribution: Double) {
         contributions += contribution
     }
+
 }

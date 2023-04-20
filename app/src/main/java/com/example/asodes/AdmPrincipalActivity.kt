@@ -37,7 +37,7 @@ class AdmPrincipalActivity : AppCompatActivity() {
     }
 
     private fun onAsignarPrestamoButttonClick(view: View){
-        val intent = Intent(this, com.example.asodes.asignarPrestamoActivity::class.java)
+        val intent = Intent(this, com.example.asodes.AssignLoanActivity::class.java)
         startActivity(intent)
     }
 

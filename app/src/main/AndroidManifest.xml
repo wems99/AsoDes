@@ -29,11 +29,7 @@
             android:name="com.example.asodes.clientePantallaPrincipalActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.asodes.asignarPrestamoActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.asodes.NewUserFormActivity"
-
+            android:name="com.example.asodes.AssignLoanActivity"
             android:exported="false" />
         <activity
             android:name="com.example.asodes.AdmPrincipalActivity"

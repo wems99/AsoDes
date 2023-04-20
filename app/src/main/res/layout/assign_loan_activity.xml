@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.asodes.CreateClientActivity">
+    <Button
+        android:id="@+id/buttonBackForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBackForm"
+        tools:layout_editor_absoluteX="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/clientIdEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Client Identification"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/searchClientButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search Client" />
+
+            <EditText
+                android:id="@+id/clientNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Client Name"
+                android:inputType="text"
+                android:enabled="false"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/clientSalaryEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Client Salary"
+                android:inputType="text"
+                android:enabled="false"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/loanPercentageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Loan percentage (1-45%)"
+                android:inputType="number"
+                android:minHeight="48dp" />
+
+            <Spinner
+                android:id="@+id/creditTypeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp" />
+
+            <Spinner
+                android:id="@+id/loanYearsSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/loanAmountEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Loan Amount"
+                android:inputType="number"
+                android:enabled="false"
+                android:minHeight="48dp" />
+
+            <!-- Vista para mostrar la cuota mensual del préstamo -->
+            <EditText
+                android:id="@+id/monthlyFeeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Monthly Fee"
+                android:inputType="number"
+                android:enabled="false"
+                android:minHeight="48dp" />
+
+            <!-- Botón para asignar el préstamo -->
+            <Button
+                android:id="@+id/assignButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Assign Loan" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
