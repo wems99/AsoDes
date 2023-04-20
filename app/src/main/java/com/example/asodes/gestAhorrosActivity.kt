@@ -21,7 +21,7 @@ class gestAhorrosActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gest_ahorros)
 
         amountPerMonth = findViewById(R.id.editTextNumberAmount)
-
+2
         btnBackGestAhorro = findViewById(R.id.buttonBackGestAhorro)
         btnSaveGesAhorro = findViewById(R.id.buttonSaveGestAhorro)
         btnBackGestAhorro.setOnClickListener(){

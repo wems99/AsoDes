@@ -62,8 +62,6 @@ class asignarPrestamoActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     private fun validateFields(): Boolean {
@@ -74,8 +72,6 @@ class asignarPrestamoActivity : AppCompatActivity() {
             findId.error = "Please enter the id to look for it"
             isValid = false
         }
-
-
         return isValid
     }
 
