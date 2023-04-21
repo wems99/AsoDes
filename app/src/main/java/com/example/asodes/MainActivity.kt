@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }catch (e: AuthenticationException){
                     runOnUiThread{
-                        Toast.makeText(this, "error, no user found", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
                     }
                 }
             }

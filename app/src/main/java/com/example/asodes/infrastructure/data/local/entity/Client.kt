@@ -32,21 +32,21 @@ data class Client (
     val userId: Long,
 
     @NonNull
-    val salary: Double,
+    var salary: Double,
 
     @NonNull
-    val phone: String,
+    var phone: String,
 
     @NonNull
-    val address: String,
+    var address: String,
 
     @ColumnInfo(name = "date_of_birth")
     @NonNull
-    val dateOfBirth: Date,
+    var dateOfBirth: Date,
 
     @ColumnInfo(name = "client_civil_status_id", index = true)
     @NonNull
-    val civilStatusId: Long,
+    var civilStatusId: Long,
 ) {
     companion object {
         fun fromJson(payload: JSONObject): Client {

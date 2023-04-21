@@ -16,6 +16,7 @@ import com.example.asodes.infrastructure.data.local.entity.Client
 import com.example.asodes.infrastructure.data.local.entity.User
 import com.example.asodes.infrastructure.utils.BackgroundRunner
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -23,7 +24,6 @@ import java.util.*
 class infPersonalActivity : AppCompatActivity() {
 
     private lateinit var fullNameEditText: EditText
-    private lateinit var idNumberEditText: EditText
     private lateinit var salaryEditText: EditText
     private lateinit var phoneEditText: EditText
     private lateinit var addressEditText: EditText
@@ -39,7 +39,6 @@ class infPersonalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inf_personal)
         fullNameEditText = findViewById(R.id.fullNameEditText)
-        idNumberEditText = findViewById(R.id.idNumberEditText)
         salaryEditText = findViewById(R.id.salaryEditText)
         phoneEditText = findViewById(R.id.phoneEditText)
         addressEditText = findViewById(R.id.addressEditText)
@@ -88,7 +87,12 @@ class infPersonalActivity : AppCompatActivity() {
                 salaryEditText.setText(client!!.salary.toString())
                 phoneEditText.setText(client!!.phone)
                 addressEditText.setText(client!!.address)
-                dateOfBirthEditText.setText(client!!.dateOfBirth.toString())
+                val dob = Calendar.getInstance()
+                dob.time = client!!.dateOfBirth
+                val year = dob.get(Calendar.YEAR)
+                val month = dob.get(Calendar.MONTH)
+                val dayOfMonth = dob.get(Calendar.DAY_OF_MONTH)
+                dateOfBirthEditText.setText("${twoDigitsFormat(dayOfMonth)}-${twoDigitsFormat(month + 1)}-${year}")
                 civilStatusSpinner.setSelection(defaultOptionIndex)
                 passwordEditText.setText(user!!.password)
             }
@@ -100,10 +104,12 @@ class infPersonalActivity : AppCompatActivity() {
                 BackgroundRunner.run {
 
                     try {
-                        val client = sendForm()
+                        val updated = sendForm()
+                        showToast("Client ${if (updated) "successfully" else "not"} updated")
+                        val intent =
+                            Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
+                        startActivity(intent)
 
-                    } catch (e: SQLiteConstraintException) {
-                        showToast("Client with provided id already exists")
                     } catch (e: Throwable) {
                         showToast(e.message)
                     }
@@ -130,12 +136,6 @@ class infPersonalActivity : AppCompatActivity() {
         // Validate full name field
         if (fullNameEditText.text.isNullOrEmpty()) {
             fullNameEditText.error = "Please enter your full name"
-            isValid = false
-        }
-
-        // Validate ID number field
-        if (idNumberEditText.text.isNullOrEmpty()) {
-            idNumberEditText.error = "Please enter your ID number"
             isValid = false
         }
 
@@ -194,33 +194,34 @@ class infPersonalActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun sendForm(): Client? {
+    private suspend fun sendForm(): Boolean {
+        var clientUpdated: Client? = null
+        var userUpdated: User?  = null
 
-        var passwordField = passwordEditText.text.toString()
-        var salaryField = salaryEditText.text.toString()
-        var dateOfBirthField = dateOfBirthEditText.text.toString()
-        var addressField = addressEditText.text.toString()
-        var phoneField = phoneEditText.text.toString()
-        var idField = idNumberEditText.text.toString()
-        var civilEstField = selectedCivilStatusId
-        var fullNameField = fullNameEditText.text.toString()
-        var userName = idField
-        var user = JSONObject()
-        user.put("name", fullNameField)
-        user.put("username", userName)
-        user.put("password", passwordField)
+        if (client !== null && user !== null) {
+            var passwordField = passwordEditText.text.toString()
+            var salaryField = salaryEditText.text.toString()
+            var dateOfBirthField = dateOfBirthEditText.text.toString()
+            var addressField = addressEditText.text.toString()
+            var phoneField = phoneEditText.text.toString()
+            var civilEstField = selectedCivilStatusId
+            var fullNameField = fullNameEditText.text.toString()
+            user!!.name = fullNameField
+            user!!.password = passwordField
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+            val dateOfBirth = dateFormat.parse(dateOfBirthField)
+            client!!.dateOfBirth = dateOfBirth
+            if (civilEstField != null) {
+                client!!.civilStatusId = civilEstField
+            }
+            client!!.phone = phoneField
+            client!!.salary = salaryField.toDouble()
+            client!!.address = addressField
 
-        var client = JSONObject()
-        client.put("user", user)
-        client.put("salary", salaryField)
-        client.put("phone", phoneField)
-        client.put("address", addressField)
-        client.put("dateOfBirth", dateOfBirthField)
-        client.put("civilStatusId", civilEstField)
-        client.put("id", idField)
-
-        return ClientController.createClient(client)
-
+            clientUpdated = ClientController.updateClient(client!!)
+            userUpdated = UserController.updateUser(user!!)
+        }
+        return clientUpdated != null && userUpdated != null
     }
 
 }

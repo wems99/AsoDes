@@ -13,13 +13,13 @@ open class User (
     val id: Long = 0,
 
     @NonNull
-    val name: String,
+    var name: String,
 
     @NonNull
     val username: String,
 
     @NonNull
-    val password: String,
+    var password: String,
 
     @ColumnInfo(name = "is_admin")
     @NonNull
