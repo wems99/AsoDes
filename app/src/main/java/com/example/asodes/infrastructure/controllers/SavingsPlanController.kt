@@ -19,7 +19,7 @@ class SavingsPlanController {
         }
 
         @JvmStatic
-        suspend fun updateClientPlan(payload: JSONObject): SavingsPlan? {
+        suspend fun updateClientPlan(payload: SavingsPlan): SavingsPlan? {
            val result = GlobalScope.async {
                UpdateClientSavingsPlanService.perform(payload)
            }

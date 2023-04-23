@@ -73,7 +73,7 @@ data class Loan(
         }
     }
 
-    private fun calculateLoanAmount(): Double {
+    fun calculateLoanAmount(): Double {
         return clientSalary * (percentage / 100)
     }
     

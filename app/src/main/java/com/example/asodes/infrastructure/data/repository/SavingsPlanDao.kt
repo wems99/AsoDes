@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.asodes.infrastructure.data.local.entity.Loan
 import com.example.asodes.infrastructure.data.local.entity.SavingsPlan
 
 @Dao

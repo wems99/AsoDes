@@ -50,7 +50,7 @@ class clientePantallaPrincipalActivity : AppCompatActivity() {
     }
 
     private fun onButtonGestAhorroClick(view: View){
-        val intent = Intent(this, com.example.asodes.gestAhorrosActivity::class.java)
+        val intent = Intent(this, com.example.asodes.ClientSavingsActivity::class.java)
         startActivity(intent)
     }
 

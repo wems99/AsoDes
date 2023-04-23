@@ -20,9 +20,6 @@
             android:name="com.example.asodes.calCuotaActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.asodes.gestAhorrosActivity"
-            android:exported="false" />
-        <activity
             android:name="com.example.asodes.verPrestamosActivity"
             android:exported="false" />
         <activity
@@ -34,7 +31,9 @@
         <activity
             android:name="com.example.asodes.AdmPrincipalActivity"
             android:exported="false" />
-
+        <activity
+            android:name="com.example.asodes.ClientSavingsActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.asodes.CreateClientActivity"
             android:exported="false" />

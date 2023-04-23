@@ -19,6 +19,7 @@ import com.example.asodes.infrastructure.data.local.entity.CreditTime
 import com.example.asodes.infrastructure.data.local.entity.Loan
 import com.example.asodes.infrastructure.data.local.entity.User
 import com.example.asodes.infrastructure.exceptions.NoRecordFoundException
+import com.example.asodes.infrastructure.exceptions.NotEnoughSalary
 import com.example.asodes.infrastructure.exceptions.UnableToCreateRecord
 import com.example.asodes.infrastructure.utils.BackgroundRunner
 import org.json.JSONObject
@@ -124,6 +125,8 @@ class AssignLoanActivity : AppCompatActivity() {
                             Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
                         startActivity(intent)
                     } catch (e: UnableToCreateRecord) {
+                        showToast(e.message)
+                    } catch (e: NotEnoughSalary) {
                         showToast(e.message)
                     }
                 }

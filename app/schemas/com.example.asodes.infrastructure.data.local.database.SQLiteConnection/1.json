@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "30ac1686c35fef9fa3324cf23c64c907",
+    "identityHash": "0b2ab180f4450c1ed99a1e30554b96d4",
     "entities": [
       {
         "tableName": "users",
@@ -461,7 +461,7 @@
       },
       {
         "tableName": "savings_plans",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`savings_plan_client_id` INTEGER NOT NULL, `savings_plan_savings_type_id` INTEGER NOT NULL, `amount` REAL NOT NULL, PRIMARY KEY(`savings_plan_client_id`, `savings_plan_savings_type_id`), FOREIGN KEY(`savings_plan_savings_type_id`) REFERENCES `savings_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`savings_plan_client_id`) REFERENCES `clients`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`savings_plan_client_id` INTEGER NOT NULL, `savings_plan_savings_type_id` INTEGER NOT NULL, `amount` REAL NOT NULL, `active` INTEGER NOT NULL, PRIMARY KEY(`savings_plan_client_id`, `savings_plan_savings_type_id`), FOREIGN KEY(`savings_plan_savings_type_id`) REFERENCES `savings_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`savings_plan_client_id`) REFERENCES `clients`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "clientId",
@@ -479,6 +479,12 @@
             "fieldPath": "amount",
             "columnName": "amount",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -552,7 +558,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '30ac1686c35fef9fa3324cf23c64c907')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b2ab180f4450c1ed99a1e30554b96d4')"
     ]
   }
 }

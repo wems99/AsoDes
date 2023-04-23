@@ -30,12 +30,15 @@ data class SavingsPlan(
     val savingsTypeId: Long,
 
     @NonNull
-    var amount: Double
+    var amount: Double,
+
+    @NonNull
+    var active: Boolean = false
 ) {
     companion object {
         @JvmStatic
         fun createSavingsPlan(clientId: Long, savingsTypeId: Long, amount: Double): SavingsPlan {
-            return SavingsPlan(clientId, savingsTypeId, amount)
+            return SavingsPlan(clientId, savingsTypeId, amount, false)
         }
     }
 }
