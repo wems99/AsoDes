@@ -31,39 +31,6 @@
             android:padding="16dp">
 
             <EditText
-                android:id="@+id/clientIdEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Client Identification"
-                android:inputType="number"
-                android:minHeight="48dp"
-                android:autofillHints="" />
-
-            <Button
-                android:id="@+id/searchClientButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Search Client" />
-
-            <EditText
-                android:id="@+id/clientNameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Client Name"
-                android:inputType="text"
-                android:enabled="false"
-                android:minHeight="48dp" />
-
-            <EditText
-                android:id="@+id/clientSalaryEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Client Salary"
-                android:inputType="text"
-                android:enabled="false"
-                android:minHeight="48dp" />
-
-            <EditText
                 android:id="@+id/loanPercentageEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,17 +68,8 @@
                 android:inputType="number"
                 android:enabled="false"
                 android:minHeight="48dp" />
-
-            <!-- Botón para asignar el préstamo -->
-            <Button
-                android:id="@+id/assignButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Assign Loan" />
-
         </LinearLayout>
 
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

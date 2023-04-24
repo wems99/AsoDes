@@ -17,10 +17,10 @@
             android:name="com.example.asodes.infPersonalActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.asodes.calCuotaActivity"
+            android:name="com.example.asodes.CalculateLoanActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.asodes.verPrestamosActivity"
+            android:name="com.example.asodes.LoanListActivity"
             android:exported="false" />
         <activity
             android:name="com.example.asodes.clientePantallaPrincipalActivity"

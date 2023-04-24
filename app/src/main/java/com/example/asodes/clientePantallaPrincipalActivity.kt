@@ -39,27 +39,27 @@ class clientePantallaPrincipalActivity : AppCompatActivity() {
         buttonVerPrestamos = findViewById(R.id.buttonVerPrestamos)
     }
 
-    private fun onButtonLogoutClick(view: View){
+    private fun onButtonLogoutClick(view: View) {
        // val intent = Intent(this, com.example.asodes.::class.java)
        // startActivity(intent)
     }
 
-    private fun onButtonCalCuotaClick(view: View){
-        val intent = Intent(this, com.example.asodes.calCuotaActivity::class.java)
+    private fun onButtonCalCuotaClick(view: View) {
+        val intent = Intent(this, com.example.asodes.CalculateLoanActivity::class.java)
         startActivity(intent)
     }
 
-    private fun onButtonGestAhorroClick(view: View){
+    private fun onButtonGestAhorroClick(view: View) {
         val intent = Intent(this, com.example.asodes.ClientSavingsActivity::class.java)
         startActivity(intent)
     }
 
-    private fun onButtonVerPrestamosClick(view: View){
-        val intent = Intent(this, com.example.asodes.verPrestamosActivity::class.java)
+    private fun onButtonVerPrestamosClick(view: View) {
+        val intent = Intent(this, com.example.asodes.LoanListActivity::class.java)
         startActivity(intent)
     }
 
-    private fun onButtonInfPersonalClick(view: View){
+    private fun onButtonInfPersonalClick(view: View) {
         val intent = Intent(this, com.example.asodes.infPersonalActivity::class.java)
         startActivity(intent)
     }

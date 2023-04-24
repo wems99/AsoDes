@@ -25,18 +25,13 @@ import com.example.asodes.infrastructure.utils.BackgroundRunner
 import org.json.JSONObject
 
 
-class AssignLoanActivity : AppCompatActivity() {
+class CalculateLoanActivity : AppCompatActivity() {
 
-    private lateinit var clientIdEditText: EditText
-    private lateinit var searchClientButton: Button
-    private lateinit var clientNameEditText: EditText
-    private lateinit var clientSalaryEditText: EditText
     private lateinit var loanPercentageEditText: EditText
     private lateinit var creditTypeSpinner: Spinner
     private lateinit var loanYearsSpinner: Spinner
     private lateinit var loanAmountEditText: EditText
     private lateinit var monthlyFeeEditText: EditText
-    private lateinit var assignButton: Button
     private lateinit var btnBackForm: Button
     private var selectedCreditType: Long? = null
     private var selectedLoanYears: Long? = null
@@ -46,19 +41,18 @@ class AssignLoanActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.assign_loan_activity)
+        setContentView(R.layout.calculate_loan)
 
-        clientIdEditText = findViewById(R.id.clientIdEditText)
-        searchClientButton = findViewById(R.id.searchClientButton)
-        clientNameEditText = findViewById(R.id.clientNameEditText)
-        clientSalaryEditText = findViewById(R.id.clientSalaryEditText)
         loanPercentageEditText = findViewById(R.id.loanPercentageEditText)
         creditTypeSpinner = findViewById(R.id.creditTypeSpinner)
         loanYearsSpinner = findViewById(R.id.loanYearsSpinner)
         loanAmountEditText = findViewById(R.id.loanAmountEditText)
         monthlyFeeEditText = findViewById(R.id.monthlyFeeEditText)
-        assignButton = findViewById(R.id.assignButton)
         btnBackForm = findViewById(R.id.buttonBackForm)
+
+        BackgroundRunner.run {
+            this.clientSalary = SessionManager.userId?.let { findClient(it)?.salary }
+        }
 
         BackgroundRunner.run {
             val creditTypeOptions = CreditTypeController.retrieveAll()
@@ -92,47 +86,6 @@ class AssignLoanActivity : AppCompatActivity() {
             }
         }
 
-        searchClientButton.setOnClickListener {
-            if (clientIdEditText.text.isNullOrEmpty()) {
-                 clientIdEditText.error = "Please enter a client id"
-            } else {
-                BackgroundRunner.run {
-                    try {
-                        val client = findClient(clientIdEditText.text.toString().toLong())
-                        val user = findUser(client!!.userId)
-                        clientSalary = client.salary
-                        runOnUiThread {
-                            clientNameEditText.setText(user!!.name)
-                            clientSalaryEditText.setText(client.salary.toString())
-                        }
-                    } catch (e: NoRecordFoundException) {
-                        showToast(e.message)
-                        clientSalary  = null
-                        creditTypePercentage  = null
-                        loanYears = null
-                    }
-                }
-            }
-        }
-
-        assignButton.setOnClickListener {
-            if (validateFields()) {
-                BackgroundRunner.run {
-                    try {
-                        val loan = sendForm()
-                        showToast("Loan ${if (loan != null) "successfully" else "not"} created")
-                        val intent =
-                            Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
-                        startActivity(intent)
-                    } catch (e: UnableToCreateRecord) {
-                        showToast(e.message)
-                    } catch (e: NotEnoughSalary) {
-                        showToast(e.message)
-                    }
-                }
-            }
-        }
-
         loanPercentageEditText.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 //Nothing
@@ -149,7 +102,7 @@ class AssignLoanActivity : AppCompatActivity() {
         })
 
         btnBackForm.setOnClickListener{
-            val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
+            val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
             startActivity(intent)
         }
     }
@@ -185,60 +138,7 @@ class AssignLoanActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateFields(): Boolean {
-        var isValid = true
-
-        if (clientIdEditText.text.isNullOrEmpty()) {
-            clientIdEditText.error = "Please enter a client id"
-            isValid = false
-        }
-
-        if (clientNameEditText.text.isNullOrEmpty()) {
-            clientNameEditText.error = "Please search a client"
-            isValid = false
-        }
-
-        if (clientSalaryEditText.text.isNullOrEmpty()) {
-            clientSalaryEditText.error = "Please search a client"
-            isValid = false
-        }
-
-        if (loanPercentageEditText.text.isNullOrEmpty()) {
-            loanPercentageEditText.error = "Please provide a loan percentage"
-            isValid = false
-        } else {
-            val percentage = loanPercentageEditText.text.toString().toInt()
-            if (percentage > 45 || percentage < 1) {
-                loanPercentageEditText.error = "Please provide a valid loan percentage"
-                isValid = false
-            }
-        }
-
-        return isValid
-    }
-
-    private suspend fun sendForm(): Loan? {
-        val creditTypeId = selectedCreditType
-        val creditTimeId = selectedLoanYears
-        val clientId = clientIdEditText.text.toString()
-        val percentage = loanPercentageEditText.text.toString()
-        val clientSalary = clientSalaryEditText.text.toString()
-
-        val payload = JSONObject()
-        payload.put("creditTypeId", creditTypeId)
-        payload.put("creditTimeId", creditTimeId)
-        payload.put("clientId", clientId)
-        payload.put("percentage", percentage)
-        payload.put("clientSalary", clientSalary)
-
-        return LoanController.assignLoan(payload)
-    }
-
     private suspend fun findClient(clientId: Long): Client? {
         return ClientController.retrieveClient(clientId)
-    }
-
-    private suspend fun findUser(clientId: Long): User? {
-        return UserController.retrieveUser(clientId)
     }
 }

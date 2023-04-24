@@ -18,6 +18,6 @@
     <string name="cuota_a_asignar">Cuota a Asignar</string>
     <string name="fee_to_pay">Fee to Pay</string>
     <string name="gestionar_ahorros">Gestionar Ahorros</string>
-    <string name="pay">Pay</string>
+    <string name="pay">Pay Month</string>
     <string name="amount_to_reduce_per_month">amount to reduce per month</string>
 </resources>

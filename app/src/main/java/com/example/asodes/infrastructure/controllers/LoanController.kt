@@ -1,9 +1,11 @@
 package com.example.asodes.infrastructure.controllers
 
+import android.provider.Settings.Global
 import com.example.asodes.infrastructure.data.local.entity.Loan
 import com.example.asodes.infrastructure.services.AddLoanContributionService
 import com.example.asodes.infrastructure.services.AssignLoanService
 import com.example.asodes.infrastructure.services.RetrieveClientLoansService
+import com.example.asodes.infrastructure.services.UpdateLoanService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import org.json.JSONObject
@@ -30,12 +32,12 @@ class LoanController {
         }
 
         @JvmStatic
-        suspend fun addContribution(loanId: Double, amount: Double) {
-            val payload = JSONObject()
-            payload.put("loanId", loanId)
-            payload.put("amount", amount)
+        suspend fun updateLoan(loan: Loan): Loan {
+            val result = GlobalScope.async {
+                UpdateLoanService.perform(loan)
+            }
 
-            AddLoanContributionService.perform(payload)
+            return result.await()
         }
      }
 }

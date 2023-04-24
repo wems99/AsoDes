@@ -14,6 +14,7 @@ class UpdateClientSavingsPlanService(private val db: SQLiteConnection): BaseServ
         val savingsPlanDao = db.savingsPlanDao()
         val loansDao = db.loanDao()
         val creditTypeDao = db.creditTypeDao()
+        val creditTimeDao = db.creditTimeDao()
 
         if (payload.amount < MIN_AMOUNT) {
             throw SavingsPlanMinAmountException("Amount must be 5000 minimum")
@@ -26,7 +27,11 @@ class UpdateClientSavingsPlanService(private val db: SQLiteConnection): BaseServ
         var savingsAmount = 0.0
         for (loan in loans) {
             val creditType = creditTypeDao.getCreditTypeById(loan.creditTypeId)
-            loanAmount += loan.calculateLoanAmount() * (creditType!!.percentage / 100)
+            val creditTime = creditTimeDao.getCreditTimeById(loan.creditTimeId)
+            val creditAmount = loan.clientSalary * (loan.percentage / 100)
+            val monthly = (creditAmount / (creditTime!!.years * 12))
+            val fee = monthly * (creditType!!.percentage / 100)
+            loanAmount += monthly + fee
         }
         for (saving in savings) {
             if (saving.savingsTypeId != payload.savingsTypeId && saving.active) {

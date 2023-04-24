@@ -15,6 +15,7 @@ class AssignLoanService(private val db: SQLiteConnection) : BaseService<JSONObje
         val loanDao = db.loanDao()
         val savingsPlanDao = db.savingsPlanDao()
         val creditTypeDao = db.creditTypeDao()
+        val creditTimeDao = db.creditTimeDao()
 
         val clientId = payload.getLong("clientId")
         val loans = loanDao.getLoansByClientId(clientId)
@@ -23,7 +24,11 @@ class AssignLoanService(private val db: SQLiteConnection) : BaseService<JSONObje
         var savingsAmount = 0.0
         for (loan in loans) {
             val creditType = creditTypeDao.getCreditTypeById(loan.creditTypeId)
-            loanAmount += loan.calculateLoanAmount() * (creditType!!.percentage / 100)
+            val creditTime = creditTimeDao.getCreditTimeById(loan.creditTimeId)
+            val creditAmount = loan.clientSalary * (loan.percentage / 100)
+            val monthly = (creditAmount / (creditTime!!.years * 12))
+            val fee = monthly * (creditType!!.percentage / 100)
+            loanAmount += monthly + fee
         }
         for (saving in savings) {
             if (saving.active) {
