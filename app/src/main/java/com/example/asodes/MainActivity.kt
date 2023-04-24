@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         initElements()
         initListeners()
+
+        finish()
     }
 
     private fun initElements() {
@@ -63,9 +65,11 @@ class MainActivity : AppCompatActivity() {
                     if(user!!.isAdmin){
                         val intent = Intent(this, com.example.asodes.AdmPrincipalActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }else{
                         val intent = Intent(this, com.example.asodes.clientePantallaPrincipalActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                 }catch (e: AuthenticationException){
                     runOnUiThread{
