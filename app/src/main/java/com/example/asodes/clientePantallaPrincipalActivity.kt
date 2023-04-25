@@ -40,8 +40,10 @@ class clientePantallaPrincipalActivity : AppCompatActivity() {
     }
 
     private fun onButtonLogoutClick(view: View) {
-       // val intent = Intent(this, com.example.asodes.::class.java)
-       // startActivity(intent)
+        SessionManager.userId = null
+        val intent = Intent(this, com.example.asodes.MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     private fun onButtonCalCuotaClick(view: View) {
